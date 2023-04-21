@@ -1,0 +1,115 @@
+1)
+import numpy as np
+import pandas as pd
+
+filename = input()
+column_name = input()
+
+
+df = pd.read_csv(filename)
+
+print(df[column_name].values)
+
+2) 
+# n = int(input())
+# X = []
+# for i in range(n):
+#     X.append([float(x) for x in input().split()])
+# y = [int(x) for x in input().split()]
+# datapoint = [float(x) for x in input().split()]
+
+
+from sklearn.linear_model import LogisticRegression
+import numpy as np
+
+# read input
+n = int(input())
+X = []
+for i in range(n):
+    row = list(map(float, input().split()))
+    X.append(row)
+y = list(map(int, input().split()))
+X_pred = np.array(list(map(float, input().split()))).reshape(1, -1)
+
+# train the model
+model = LogisticRegression()
+model.fit(X, y)
+
+# make a prediction
+prediction = model.predict(X_pred)
+print(prediction[0])
+
+3)
+
+# read in input
+tp, fp, fn, tn = map(int, input().split())
+
+# calculate evaluation metrics
+accuracy = (tp + tn) / (tp + tn + fp + fn)
+precision = tp / (tp + fp)
+recall = tp / (tp + fn)
+f1_score = 2 * precision * recall / (precision + recall)
+
+# print results
+print(round(accuracy, 4))
+print(round(precision, 4))
+print(round(recall, 4))
+print(round(f1_score, 4))
+
+4)
+def calculate_gini_impurity(targets):
+    if not targets:
+        return 0
+    p = sum(targets) / len(targets)
+    return 1 - p**2 - (1 - p)**2
+
+def calculate_information_gain(data, left, right):
+    gini_before = calculate_gini_impurity(data)
+    weight_left = len(left) / len(data)
+    weight_right = len(right) / len(data)
+    gini_left = calculate_gini_impurity(left)
+    gini_right = calculate_gini_impurity(right)
+    gini_after = weight_left * gini_left + weight_right * gini_right
+    return round(gini_before - gini_after, 5)
+    
+data = list(map(int, input().split()))
+left = list(map(int, input().split()))
+right = list(map(int, input().split()))
+
+result = calculate_information_gain(data, left, right)
+print(result)
+
+5)
+
+import numpy as np 
+from sklearn.ensemble import RandomForestClassifier 
+from sklearn.model_selection import train_test_split 
+
+random_state = int(input()) 
+n = int(input()) 
+rows = [] 
+for i in range(n): 
+    rows.append([float(a) for a in 
+input().split()]) 
+
+x = np.array(rows) 
+y = np.array([int(a) for a in input().split()]) 
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,random_state=random_state) 
+model=RandomForestClassifier(n_estimators=5,random_state=random_state) 
+model.fit(x_train,y_train) 
+print(model.predict(x_test))
+
+6)
+
+import math
+
+w1, w2, b, x1, x2 = map(float, input().split())
+
+output = 1 / (1 + math.exp(-(w1*x1 + w2*x2 + b)))
+
+print(round(output, 4))
+
+7)
+
+
